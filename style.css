@@ -15,6 +15,7 @@ html, body {
     justify-content: center;
     padding: 25px 0px;
     font-size: 48px;
+    width: 100%;
     background-color: #273E47;
 }
 
@@ -28,12 +29,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    /* align-content: space-between; */
     height: 100%;
 }
 
 .calc-container {
-    padding-top: 120px;
+    margin-top: auto;
     height: auto;
     width: 400px;
     display: flex;
@@ -92,6 +93,7 @@ button {
 }
 
 .footer {
+    width: 100%;
     display: flex;
     gap: 10px;
     padding: 25px 0px;
@@ -101,6 +103,7 @@ button {
     justify-content: center;
     align-items: baseline;
     font-size: 20px;
+    margin-top: auto;
 }
 
 a,
