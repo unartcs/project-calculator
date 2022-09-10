@@ -27,7 +27,7 @@ function clearAll() {
     sum = ''
     sameNum = '';
     updateScreen();
-    getScreenBottom.textContent = 0;
+    getScreenBottom.textContent = 'Cleared!';
 }
 
 function deleteNumber() {
@@ -35,7 +35,14 @@ function deleteNumber() {
         num2 = num2.split('');
         num2.pop();
         num2 = num2.join('');
-    } updateScreen();
+    } 
+    else if (num1 !== '' && operator == '') {
+        num1 = num1.split('');
+        num1.pop();
+        num1 = num1.join('');
+    }
+    else { return }
+    updateScreen();
 }
 
 function checkNumbers(value) {
@@ -49,14 +56,14 @@ function checkNumbers(value) {
 }
 function equalNumbers() {
     const sameNum = num1;
-    if (num2 == 0) {
+    if (num2 == 0 && operator == '/') {
         getScreenBottom.textContent = 'Cannot divide by 0!'
     }
     else if (num1 !== '' && num2 !== '') {
         calculate(operator, num1, num2);
         updateScreen();
     }
-    // } else if (num2 === '') { /// Need to set a certain variable if I want to be able to do num1 + = (lets say 5+ and then = will be 5>10>15>20 etc and not 10 > 20 >40 etc)
+    // else if (num2 === '') { /// Need to set a certain variable if I want to be able to do num1 + = (lets say 5+ and then = will be 5>10>15>20 etc and not 10 > 20 >40 etc)
     //     calculate(operator, num1, sameNum)
     // }
 }
@@ -68,7 +75,7 @@ function checkOperator(value) {
         calculate(operator, num1, num2)
         operator = value;
         updateScreen();
-    } else {
+    } else if (num1 !== '') {
         operator = value;
         updateScreen();
     }
