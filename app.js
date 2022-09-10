@@ -6,19 +6,21 @@ const getScreenTop = document.querySelector('.calc-screen-top')
 const getScreenBottom = document.querySelector('.calc-screen-bottom')
 const getButtonOperators = document.querySelectorAll('.operator')
 const getAllButtons = document.querySelectorAll('button')
+const getDecimalButton = document.querySelector('.decimal')
+
 
 num1 = '';
 num2 = '';
 operator = '';
 sum = ''
 sameNum = '';
+decimal = false;
+
 function cc() {
     console.log(`num1: ${num1}`)
     console.log(`num2: ${num2}`)
     console.log(`operator: ${operator}`)
 }
-
-////////////////Things to add, divide by 0, change button names, % ^ and idk what else? maybe make it look better
 
 function clearAll() {
     num1 = '';
@@ -26,16 +28,45 @@ function clearAll() {
     operator = '';
     sum = ''
     sameNum = '';
+    decimal = false;
     updateScreen();
     getScreenBottom.textContent = 'Cleared!';
 }
 
+function checkDecimal() {
+    if (decimal == false && operator !== '' && num2 !== '') {
+        num2 += '.'
+        decimal = true;
+        updateScreen();
+    } else if (decimal == false && operator === '' && num1 !== '') {
+        num1 += '.'
+        decimal = true;
+        updateScreen();
+    }
+    else if (decimal == true) {
+        return;
+    }
+}
+
+
 function deleteNumber() {
-    if (operator !== '' && num2 !== '') {
+    if (operator !== '' && num2.endsWith(".")) {
         num2 = num2.split('');
         num2.pop();
         num2 = num2.join('');
-    } 
+        decimal = false;
+    }
+    else if (num1 !== '' && operator == '' && num1.endsWith(".")) {
+        num1 = num1.split('');
+        num1.pop();
+        num1 = num1.join('');
+        decimal = false;
+    }
+    else if (operator !== '' && num2 !== '') {
+        num2 = num2.split('');
+        num2.pop();
+        num2 = num2.join('');
+    }
     else if (num1 !== '' && operator == '') {
         num1 = num1.split('');
         num1.pop();
@@ -61,7 +92,7 @@ function equalNumbers() {
     }
     else if (num1 !== '' && num2 !== '') {
         calculate(operator, num1, num2);
-        updateScreen();
+        updateLowerScreen();
     }
     // else if (num2 === '') { /// Need to set a certain variable if I want to be able to do num1 + = (lets say 5+ and then = will be 5>10>15>20 etc and not 10 > 20 >40 etc)
     //     calculate(operator, num1, sameNum)
@@ -74,9 +105,11 @@ function checkOperator(value) {
     else if (num1 !== '' && num2 !== '') {
         calculate(operator, num1, num2)
         operator = value;
+        decimal = false;
         updateScreen();
     } else if (num1 !== '') {
         operator = value;
+        decimal = false;
         updateScreen();
     }
 }
@@ -90,6 +123,14 @@ function updateScreen(b) {
         getScreenTop.textContent = `${num1}${operator}${num2}`
     }
 }
+
+function updateLowerScreen() {
+        getScreenBottom.textContent = num1;
+}
+
+getDecimalButton.addEventListener('click', function () {
+    checkDecimal();
+})
 
 getButtonDelete.addEventListener('click', function () {
     deleteNumber();
@@ -165,5 +206,5 @@ function divide(a, b) {
     return parseFloat(a) / parseFloat(b);
 }
 function power(a, b) {
-    return Math.pow(parseFloat(a),parseFloat(b))
+    return Math.pow(parseFloat(a), parseFloat(b))
 }
