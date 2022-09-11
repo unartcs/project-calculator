@@ -92,6 +92,7 @@ function equalNumbers() {
     }
     else if (num1 !== '' && num2 !== '') {
         calculate(operator, num1, num2);
+        decimal = false;
         updateLowerScreen();
     }
     // else if (num2 === '') { /// Need to set a certain variable if I want to be able to do num1 + = (lets say 5+ and then = will be 5>10>15>20 etc and not 10 > 20 >40 etc)
@@ -125,7 +126,7 @@ function updateScreen(b) {
 }
 
 function updateLowerScreen() {
-        getScreenBottom.textContent = num1;
+    getScreenBottom.textContent = num1;
 }
 
 getDecimalButton.addEventListener('click', function () {
@@ -145,6 +146,7 @@ getButtonNumbers.forEach((button) => {
         checkNumbers(button.textContent);
     })
 })
+
 
 getButtonOperators.forEach((button) => {
     button.addEventListener('click', function () {
